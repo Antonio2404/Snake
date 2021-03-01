@@ -76,6 +76,7 @@ function drawGame() {
 
 
     // начальная позиция головы
+    
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = "black";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
