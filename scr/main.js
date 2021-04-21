@@ -28,6 +28,11 @@ let score = 0;
 let speed = 200;
 
 //создание еды
+ 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 let food = {
     x: Math.floor((Math.random() * 17 + 1)) * box,
     y: Math.floor((Math.random() * 15 + 3)) * box
@@ -61,6 +66,7 @@ function direction(event) {
 }
 
 //встреча головы и хвоста
+
 function eatTail(head, arrSnake) {
     for (let i = 0; i < arrSnake.length; i++) {
         if (head.x == arrSnake[i].x && head.y == arrSnake[i].y) {
