@@ -27,7 +27,7 @@ let score = 0;
 
 let speed = 200;
 
-//создание еды
+//создание еды 
  
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
