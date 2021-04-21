@@ -114,19 +114,20 @@ function refreshGame() {
 	randomPositionBerry();
 }
 
+function drawBerry() {
+	context.beginPath();
+	context.fillStyle = "#A00034";
+	context.arc( berry.x + (config.sizeCell / 2 ), berry.y + (config.sizeCell / 2 ), config.sizeBerry, 0, 2 * Math.PI );
+	context.fill();
+}
+
 function randomPositionBerry() {
 	berry.x = getRandomInt( 0, canvas.width / config.sizeCell ) * config.sizeCell;
 	berry.y = getRandomInt( 0, canvas.height / config.sizeCell ) * config.sizeCell;
 }
 
 
-function drawBerry() {
 
-	context.beginPath();
-	context.fillStyle = "#A00034";
-	context.arc( berry.x + (config.sizeCell / 2 ), berry.y + (config.sizeCell / 2 ), config.sizeBerry, 0, 2 * Math.PI );
-	context.fill();
-}
 
 
 
@@ -151,13 +152,6 @@ function drawBerry() {
 
 // // скорость игры
 // let game = setInterval(drawGame, speed);
-
-
-
-function randomPositionFood(){
-
-}
-
 
 
 //встреча головы и хвоста
