@@ -23,16 +23,15 @@ down.src = "song/down.mp3"
 
 let box = 32;
 
+let scoreBlock;
 let score = 0;
 
 let speed = 200;
 
-//создание еды 
- 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
+let dir;
 
+//создание еды
+ 
 let food = {
     x: Math.floor((Math.random() * 17 + 1)) * box,
     y: Math.floor((Math.random() * 15 + 3)) * box
@@ -49,21 +48,17 @@ snake[0] = {
 let game = setInterval(drawGame, speed);
 
 // отслеживание нажатий 
-document.addEventListener("keydown", direction);
-// переменная направления
-let dir;
-
-function direction(event) {
-    if (event.keyCode == 37 && dir != "right") {
+document.addEventListener("keydown", function(e){
+    if (e.code == "ArrowLeft" && dir != "right") {
         dir = "left"; left.play();
-    } else if (event.keyCode == 38 && dir != "down") {
+    } else if (e.code == "ArrowUp" && dir != "down") {
         dir = "up"; up.play();
-    } else if (event.keyCode == 39 && dir != "left") {
+    } else if (e.code == "ArrowRight" && dir != "left") {
         dir = "right"; right.play();
-    } else if (event.keyCode == 40 && dir != "up") {
+    } else if (e.code == "ArrowDown" && dir != "up") {
         dir = "down"; down.play();
     }
-}
+});
 
 //встреча головы и хвоста
 
@@ -74,6 +69,14 @@ function eatTail(head, arrSnake) {
             clearInterval(game);
         }
     }
+}
+//выход за границу поля
+function crossingBorder(){
+    if (snakeX < box || snakeX > box * 17 || snakeY < box * 3 || snakeY > box * 17) {
+        clearInterval(game);
+        dead.play();
+    }
+
 }
 
 function drawGame() {
@@ -93,6 +96,8 @@ function drawGame() {
     ctx.fillText(score, box * 6, box * 1.5);
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
+
+    // съедание еды
     if (snakeX == food.x && snakeY == food.y) {
         score++;
         eat.play();
@@ -105,7 +110,8 @@ function drawGame() {
         snake.pop();
     }
 
-    // выход за границы поля
+   // выход за границы поля
+   // crossingBorder();
     if (snakeX < box || snakeX > box * 17 || snakeY < box * 3 || snakeY > box * 17) {
         clearInterval(game);
         dead.play();
@@ -128,4 +134,3 @@ function drawGame() {
     eatTail(newElementSnake, snake);
     snake.unshift(newElementSnake);
 }
-
