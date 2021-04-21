@@ -33,9 +33,13 @@ let dir;
 //создание еды
  
 let food = {
+    x: 0,
+    y: 0,
     x: Math.floor((Math.random() * 17 + 1)) * box,
     y: Math.floor((Math.random() * 15 + 3)) * box
 }
+
+
 
 let snake = [];
 
@@ -60,6 +64,15 @@ document.addEventListener("keydown", function(e){
     }
 });
 
+function randomPositionFood(){
+
+}
+
+//функция генерации случайных чисел
+function getRandomInt(min, max) {
+	return Math.floor( Math.random() * (max - min) + min );
+}
+
 //встреча головы и хвоста
 
 function eatTail(head, arrSnake) {
@@ -77,6 +90,11 @@ function crossingBorder(){
         dead.play();
     }
 
+}
+
+function incScore() {
+	score++;
+	//drawScore();
 }
 
 function drawGame() {
@@ -99,7 +117,7 @@ function drawGame() {
 
     // съедание еды
     if (snakeX == food.x && snakeY == food.y) {
-        score++;
+        incScore();
         eat.play();
         food = {
             x: Math.floor((Math.random() * 17 + 1)) * box,
