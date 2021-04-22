@@ -12,37 +12,31 @@ foodimg.src = "img/food.png";
 const config = {
 	step: 0,
 	maxStep: 6,
-	sizeCell: 32,
-	sizeBerry: 32 / 4
+	sizeCell: 32, // размер ячейки
+	sizeBerry: 32 / 4 // размер ячейки еды
 }
 
 const snake = {
-	x:272,
-	y: 272,
-	dx: 0,
-	dy: 0,
-	tails: [],
-	maxTails: 3
+	x:272, // координата по х
+	y: 272, // координата по у
+	dx: 0, // скорость по горизонтали
+	dy: 0, // скорость по вертикали
+	tails: []
+	//maxTails: 3
 }
 
 let berry = {
-	x: 0,
-	y: 0
+	x: getRandomInt( 0, canvas.width / config.sizeCell ) * config.sizeCell, // координата еды х
+	y: getRandomInt( 0, canvas.height / config.sizeCell ) * config.sizeCell // координата еды у
 } 
 
 const dead = new Audio();
 const eat = new Audio();
-const up = new Audio();
-const left = new Audio();
-const right = new Audio();
-const down = new Audio();
+const control = new Audio();
 
 dead.src = "song/dead.mp3"
 eat.src = "song/eat.mp3"
-up.src = "song/up.mp3"
-left.src = "song/left.mp3"
-right.src = "song/right.mp3"
-down.src = "song/down.mp3"
+control.src = "song/control.mp3"
 
 
 let dir;
@@ -107,7 +101,7 @@ function refreshGame() {
 	snake.x = 272;
 	snake.y = 272;
 	snake.tails = [];
-	snake.maxTails = 3;
+	snake.maxTails = 2;
 	snake.dx = config.sizeCell;
 	snake.dy = 0;
 
@@ -122,8 +116,8 @@ function drawBerry() {
 }
 
 function randomPositionBerry() {
-	berry.x = getRandomInt( 0, canvas.width / config.sizeCell ) * config.sizeCell;
-	berry.y = getRandomInt( 0, canvas.height / config.sizeCell ) * config.sizeCell;
+	berry.x;
+	berry.y;
 }
 
 
@@ -172,16 +166,24 @@ function crossingBorder(){
 }
 
 // отслеживание нажатий 
-document.addEventListener("keydown", function(e){
-    if (e.code == "ArrowLeft" && dir != "right") {
-        dir = "left"; left.play();
-    } else if (e.code == "ArrowUp" && dir != "down") {
-        dir = "up"; up.play();
-    } else if (e.code == "ArrowRight" && dir != "left") {
-        dir = "right"; right.play();
-    } else if (e.code == "ArrowDown" && dir != "up") {
-        dir = "down"; down.play();
-    }
+document.addEventListener("keydown", function (e) {
+	if ( e.code == "ArrowUp" ) {
+		snake.dy = -config.sizeCell;
+		snake.dx = 0;
+		control.play();
+	} else if ( e.code == "ArrowLeft" ) {
+		snake.dx = -config.sizeCell;
+		snake.dy = 0;
+		control.play();
+	} else if ( e.code == "ArrowDown" ) {
+		snake.dy = config.sizeCell;
+		snake.dx = 0;
+		control.play();
+	} else if ( e.code == "ArrowRight" ) {
+		snake.dx = config.sizeCell;
+		snake.dy = 0;
+		control.play();
+	}
 });
 
 // увеличение счета
